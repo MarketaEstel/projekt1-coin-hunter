@@ -132,10 +132,19 @@ function krok(hop) {
 		if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) 
 		{
 			novaMince();
-			document.querySelector("#score").textContent = score;
-			score += 1;
-			}
+			pocitaniScore()	
 		}
+		}
+
+	function pocitaniScore() {
+		document.querySelector("#score").textContent = score;
+			score += 1;
+			if (score === 5) {
+				console.log("pocitaní skore");
+				score.textContent = "Máš 5 bodů, vyhrál si.";
+			}
+		}	
+
 
 
 
