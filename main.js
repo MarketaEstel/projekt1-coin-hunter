@@ -26,45 +26,16 @@ let minceSirka = "36px";
 let minceVyska = "36px";
 let score = 0;
 
-let innerWidth = window.innerWidth;
-let innerHeight = window.innerHeight;
+let sirka = window.innerWidth;
+let vyska = window.innerHeight;
 
 // tato funkce se spustí při načtení stránky
 // tj. ve chvíli, kdy je načtené komplet HTML, CSS a všechny obrázky a zvuky
-
-function krok(hop) {
-	console.log(hop, "chuze");
-		if (hop.key === "ArrowRight") {
-			panacekX += 20; //+= je zkrácená varianta panacekX = panacekX + 20
-			panacek.style.left = panacekX + "px"; //udává hodnotu nové pozice v pixelech
-			console.log(panacek.style.left);
-			panacek.src = "obrazky/panacek-vpravo.png"; //změna zdroje obrázku
-		} else if (hop.key === "ArrowLeft") { 
-			panacekX -= 20;
-			panacek.style.left = panacekX + "px";
-			console.log(panacek.style.left);
-			panacek.src = "obrazky/panacek-vlevo.png";
-		} else if (hop.key === "ArrowUp") {
-			panacekY -=20;
-			panacek.style.top = panacekY + "px";
-			console.log(panacek.style.top);
-			panacek.src = "obrazky/panacek-nahoru.png";
-		} else if (hop.key === "ArrowDown") {
-			panacekY +=20;
-			panacek.style.top = panacekY + "px";
-			console.log(panacek.style.top);
-			panacek.src = "obrazky/panacek.png";
-
-		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi()
-		
-		otestujKolizi();
-	}
 
 function priNacteniStranky() {
 	panacek.style.left = "400px";
 	panacek.style.top = "400px";
 	
-	krok;
 	novaMince();
 
 	// do globálních proměnných si uložíme odkaz na objekty panáčka a mince,
@@ -130,14 +101,42 @@ function novaMince() {
 
 // fuknce pro otestování kolize panáčka s mincí
 
+function krok(hop) {
+	console.log(hop, "chuze");
+		if (hop.key === "ArrowRight") {
+			panacekX += 20; //+= je zkrácená varianta panacekX = panacekX + 20
+			panacek.style.left = panacekX + "px"; //udává hodnotu nové pozice v pixelech
+			console.log(panacek.style.left);
+			panacek.src = "obrazky/panacek-vpravo.png"; //změna zdroje obrázku
+		} else if (hop.key === "ArrowLeft") { 
+			panacekX -= 20;
+			panacek.style.left = panacekX + "px";
+			console.log(panacek.style.left);
+			panacek.src = "obrazky/panacek-vlevo.png";
+		} else if (hop.key === "ArrowUp") {
+			panacekY -=20;
+			panacek.style.top = panacekY + "px";
+			console.log(panacek.style.top);
+			panacek.src = "obrazky/panacek-nahoru.png";
+		} else if (hop.key === "ArrowDown") {
+			panacekY +=20;
+			panacek.style.top = panacekY + "px";
+			console.log(panacek.style.top);
+			panacek.src = "obrazky/panacek.png";
+			
+		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi()
+		
+		// otestujKolizi();
+	}
+
 function otestujKolizi() {
 	console.log(otestujKolizi)
 	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
+		console.log("kolize")
 		novaMince();
-		krok;
 		}
 	}
 
-		// 		// panacek a mince se prekryvaji
+		// panacek a mince se prekryvaji
 
 // 	když se rovnají pozice panáčka a mince dojde ke kolizi, mince se přemístí na novou pozici = musím si zavolat funkci mince, kde mám random, zvuk a score
