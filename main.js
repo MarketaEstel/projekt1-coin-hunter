@@ -26,8 +26,8 @@ let minceSirka = "36px";
 let minceVyska = "36px";
 let score = 0;
 
-let innerWidth = Window.innerWidth;
-let innerHeight = Window.innerHeight;
+let innerWidth = window.innerWidth;
+let innerHeight = window.innerHeight;
 
 // tato funkce se spustí při načtení stránky
 // tj. ve chvíli, kdy je načtené komplet HTML, CSS a všechny obrázky a zvuky
@@ -55,9 +55,9 @@ function krok(hop) {
 			console.log(panacek.style.top);
 			panacek.src = "obrazky/panacek.png";
 
-		otestujKolizi;
-
 		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi()
+		
+		otestujKolizi();
 	}
 
 function priNacteniStranky() {
@@ -132,9 +132,10 @@ function novaMince() {
 
 function otestujKolizi() {
 	console.log(otestujKolizi)
-	if (( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) 
-	novaMince();
-	krok;
+	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
+		novaMince();
+		krok;
+		}
 	}
 
 		// 		// panacek a mince se prekryvaji
