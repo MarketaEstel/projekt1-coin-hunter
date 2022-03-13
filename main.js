@@ -17,13 +17,13 @@ let panacekX = 400;
 let panacekY = 400; 
 // můžu určit pozici bez jednotek, protože jednotky si udávám ve funkci ve style.left/top
 
-let panacekSirka = "64px";
-let panacekVyska = "70px";
+let panacekSirka = 64;
+let panacekVyska = 70;
 let mince = document.querySelector("#mince");
 let minceX = 600;
 let minceY = 600;
-let minceSirka = "36px";
-let minceVyska = "36px";
+let minceSirka = 36;
+let minceVyska = 36;
 let score = 0;
 
 let sirka = window.innerWidth;
@@ -59,12 +59,10 @@ function priNacteniStranky() {
 // a umístění mince na tyto souřadnice
 
 function novaMince() {
-	document.querySelector("#score").textContent = score;
-	score += 1;
 	
-	minceX = (Math.random()*innerWidth+1);
+	minceX = Math.floor(Math.random()*innerWidth);
 	mince.style.left = minceX + "px";
-	minceY = (Math.random()*innerHeight+1);
+	minceY = Math.floor(Math.random()*innerHeight);
 	mince.style.top = minceY + "px";
 				
 	console.log("novaMince");
@@ -124,18 +122,22 @@ function krok(hop) {
 			console.log(panacek.style.top);
 			panacek.src = "obrazky/panacek.png";
 			
-		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi()
+		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi() - je jedno, jestli je "otestuj kolizi" v každé podmínce nebo až pod nimi
 		
-		// otestujKolizi();
+		otestujKolizi();
 	}
 
-function otestujKolizi() {
-	console.log(otestujKolizi)
-	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-		console.log("kolize")
-		novaMince();
+	function otestujKolizi() {
+		console.log("otestujKolizi")
+		if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) 
+		{
+			novaMince();
+			document.querySelector("#score").textContent = score;
+			score += 1;
+			}
 		}
-	}
+
+
 
 		// panacek a mince se prekryvaji
 
