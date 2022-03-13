@@ -26,8 +26,11 @@ let minceSirka = 36;
 let minceVyska = 36;
 let score = 0;
 
-let sirka = window.innerWidth;
-let vyska = window.innerHeight;
+let w = window.innerWidth;
+let h = window.innerHeight;
+
+let cinknuti = document.querySelector("#zvukmince");
+let fanfara = document.querySelector("#zvukfanfara");
 
 // tato funkce se spustí při načtení stránky
 // tj. ve chvíli, kdy je načtené komplet HTML, CSS a všechny obrázky a zvuky
@@ -64,7 +67,7 @@ function novaMince() {
 	mince.style.left = minceX + "px";
 	minceY = Math.floor(Math.random()*innerHeight);
 	mince.style.top = minceY + "px";
-				
+	
 	console.log("novaMince");
 
 		//musím použít funkci Math.floor(Math.random()*šířka/výška okna prohlížeče+1), hodnoty randomu musí být max. velikosti plochy
@@ -123,30 +126,38 @@ function krok(hop) {
 			panacek.src = "obrazky/panacek.png";
 			
 		} //v této funkci musím kontrolovat kolizi panáčka s mincí, v každém kroku if a else if a při každém kroku panáčka, musím volat funkci kolize = otestujKolizi() - je jedno, jestli je "otestuj kolizi" v každé podmínce nebo až pod nimi
-		
+	
 		otestujKolizi();
 	}
 
-	function otestujKolizi() {
-		console.log("otestujKolizi")
-		if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) 
+function play(event) {
+	cinknuti.play(cinknuti);
+}
+
+// function play(event) {
+// 	fanfara.play(fanfara);
+// }
+
+function otestujKolizi() {
+	console.log("otestujKolizi")
+	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) 
 		{
 			novaMince();
+			play(cinknuti);
 			pocitaniScore()	
-		}
-		}
-
-	function pocitaniScore() {
-		document.querySelector("#score").textContent = score;
-			score += 1;
+			
 			if (score === 5) {
 				console.log("pocitaní skore");
 				score.textContent = "Máš 5 bodů, vyhrál si.";
+				// play(fanfara);
 			}
-		}	
+		}
+	}
 
-
-
+function pocitaniScore() {
+	document.querySelector("#score").textContent = score;
+		score += 1;
+}	
 
 		// panacek a mince se prekryvaji
 
